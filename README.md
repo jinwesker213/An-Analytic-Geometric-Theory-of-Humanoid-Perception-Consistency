@@ -22,4 +22,4 @@ Claude Shannon provided an important precedent. In his 1937 master's thesis, lat
 
 Physical AI needs a comparable system-engineering language: one that can connect symbolic state, continuous mechanics, geometry, sensing, and coordination.
 
-e that a humanoid will not fall or safely recover in every environment. Full-body simulation and hardware validation are required.
+
