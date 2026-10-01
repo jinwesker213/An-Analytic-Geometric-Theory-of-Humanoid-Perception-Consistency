@@ -1,7 +1,3 @@
-# An-Analytic-Geometric-Theory-of-Humanoid-Perception-Consistency
-
-This foundational principle gives rise to the Cognitive Nervous System Protocol (CNS)—a unified command architecture that ensures autonomous AI systems are anchored not in blind inference, but in mathematically verifiable, real-world fact.
-
 # ELDCF: A Mathematical Consistency Framework for Physical AI
 
 A fundamental vulnerability in modern robotics is that systems often slow down, fail, or shut down when they encounter complex, unstructured physical tasks: uneven ground, sudden loss of friction, stairs, sharp turns, or a carried object that begins to move.
@@ -28,6 +24,7 @@ Claude Shannon provided an important precedent. In his 1937 master's thesis, lat
 
 Physical AI needs a comparable system-engineering language: one that can connect symbolic state, continuous mechanics, geometry, sensing, and coordination.
 
-We propose an Euler-Lagrange–Cayley–Descartes–Fourier framework (ELCDF). Euler-Lagrange dynamics provide a physical consistency check among joint motion, acceleration, torque, and contact force. Cartesian coordinates provide an interpretable representation of limb and foot-force directions. Cayley graphs encode verified morphological symmetries, such as the phase-aligned left-right relation of a humanoid robot. Representation-theoretic Fourier projections separate common whole-body motion from asymmetric modes associated with unilateral slip, contact failure, sensor error, or loss of coordination.
+We propose ELDCF as a mathematical consistency framework for physical AI. Euler-Lagrange dynamics check agreement among joint motion, acceleration, torque, and contact force. Cartesian coordinates provide interpretable representations of contact and force directions. Boolean states compactly represent contact and phase logic. When a morphology-specific relation has been validated, Cayley graphs and Fourier/frame features can summarize structural coordination. These channels are combined as interpretable evidence for supervisory actions such as slow down, recover, replan, or safely stop. ELDCF is not a replacement for a world model or controller; it is a pre-trust layer that checks whether the robot’s current physical description remains coherent.
 
+This foundational principle gives rise to the Cognitive Nervous System Protocol (CNS)—a unified command architecture that ensures autonomous AI systems are anchored not in blind inference, but in mathematically verifiable, real-world fact. 
 
