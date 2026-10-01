@@ -2,23 +2,33 @@
 
 This foundational principle gives rise to the Cognitive Nervous System Protocol (CNS)—a unified command architecture that ensures autonomous AI systems are anchored not in blind inference, but in mathematically verifiable, real-world fact.
 
-# ELDCF: From Boolean Logic to Geometric Physical Consistency
+# ELDCF: A Mathematical Consistency Framework for Physical AI
 
-ELDCF is inspired by the spirit of Claude Shannon’s 1937 master’s thesis, *A Symbolic Analysis of Relay and Switching Circuits*. Shannon showed that complex switching circuits could be represented through a small, rigorous Boolean calculus.
+A fundamental vulnerability in modern robotics is that systems often slow down, fail, or shut down when they encounter complex, unstructured physical tasks: uneven ground, sudden loss of friction, stairs, sharp turns, or a carried object that begins to move.
 
-Our goal is analogous, but for embodied motion:
+The challenge is not simply object recognition. A humanoid robot must continuously judge whether its body, sensors, contact forces, motion plan, and environment can still be explained by one coherent physical situation.
 
-> Reduce a complex humanoid body into a structured mathematical system in which physical state, contact, sensing, geometry, and coordination can be checked together.
+Ludwig Wittgenstein wrote in *Tractatus Logico-Philosophicus* that the world is not merely a collection of things, but a totality of facts. This is a useful intuition for robotics. A robot does not act safely because it has identified isolated objects. It acts safely when it recognizes meaningful relations and events:
 
-## 1. Boolean motion states
+- a foot is in contact with the ground;
+- the body is accelerating;
+- the expected support force is present;
+- the left and right sides of a gait remain coordinated;
+- an IMU reading agrees with joint kinematics and contact measurements.
 
-For each contact or limb direction, continuous measurements can be mapped into a compact logical state space:
+The engineering task is therefore to make complexity simpler without pretending that it has disappeared. We need compact models that preserve the relationships necessary for safe action.
 
-$$
-\mathcal{B} = \{+,0,-\}^{m}.
-$$
+Claude Shannon provided an important precedent. In his 1937 master's thesis, later published in 1938 as *A Symbolic Analysis of Relay and Switching Circuits*, Shannon showed that complex relay networks could be represented and manipulated through Boolean algebra. Ten years later, information theory provided a mathematical language for uncertainty, communication, and the limits of reliable transmission.
 
-For example, a foot-contact state can be written as:
+Physical AI needs a comparable system-engineering language: one that can connect symbolic state, continuous mechanics, geometry, sensing, and coordination.
+
+**ELDCF** is a proposed framework in that direction. It combines Boolean logic, Euler-Lagrange dynamics, Cartesian contact geometry, and graph signal processing into one interpretable safety-monitoring layer.
+
+## Mathematical structure
+
+### Boolean logic: compact contact and event states
+
+Continuous measurements can be converted into logical states for contact, direction, and phase.
 
 $$
 b_{\mathrm{contact}} =
@@ -28,11 +38,11 @@ b_{\mathrm{contact}} =
 \end{cases}
 $$
 
-Boolean variables do not replace physical measurements. They provide a symbolic layer for contact logic, phase gating, and safety rules.
+This does not discard the underlying force measurement. It provides a compact symbolic language for questions such as: *Is the foot supporting the robot? Has contact been lost? Is this motion phase physically valid?*
 
-## 2. Euler-Lagrange physical consistency
+### Euler-Lagrange dynamics: physical consistency
 
-The physical layer asks whether observed motion can be explained by rigid-body dynamics:
+The robot's measured motion should remain compatible with rigid-body dynamics:
 
 $$
 r_{\mathrm{EL}} =
@@ -47,37 +57,27 @@ G(q)
 J(q)^{\mathsf{T}}F.
 $$
 
-where:
+Here, $q$ is robot configuration, $M(q)$ is the mass matrix, $C(q,\dot{q})\dot{q}$ represents velocity-dependent effects, $G(q)$ is gravity, $\tau$ is actuator torque, $J(q)$ is the contact Jacobian, and $F$ is contact force.
 
-- $q$ is the robot configuration;
-- $M(q)$ is the mass matrix;
-- $C(q,\dot{q})\dot{q}$ contains velocity-dependent effects;
-- $G(q)$ is gravity;
-- $\tau$ is actuator torque;
-- $J(q)$ is the contact Jacobian;
-- $F$ is the contact-force vector.
+The residual $r_{\mathrm{EL}}$ is not a controller. It is evidence of whether the current motion, force, and model can still be explained together.
 
-A large residual is evidence that the state estimate, contact assumption, sensor data, or physical model may no longer be mutually consistent.
+### Cartesian geometry: contact and friction
 
-## 3. Cartesian contact geometry
-
-A basic friction-utilization quantity is:
+For a supporting foot, the relationship between tangential force, normal force, and friction matters:
 
 $$
 \gamma =
 \frac{\lVert F_t \rVert}
-{\mu \max(F_n,F_{\min})},
+{\mu \max(F_n,F_{\min})}.
 $$
 
-where $F_t$ is tangential contact force, $F_n$ is normal force, and $\mu$ is the assumed friction coefficient.
+Here, $F_t$ is tangential contact force, $F_n$ is normal contact force, and $\mu$ is the assumed friction coefficient. A high value of $\gamma$ indicates that the robot may be approaching friction saturation or slip.
 
-This helps distinguish support, swing, impact, weak contact, friction saturation, and possible slip.
+### Graph signal processing: structural coordination
 
-## 4. Graph signal processing and coordination
+A humanoid body can be represented as a graph whose nodes are meaningful subsystems and whose edges encode physically justified relationships: left-right correspondence, torso-leg coupling, or gait-phase coordination.
 
-The robot body can be represented as a graph. Nodes represent selected subsystems; edges represent physically meaningful couplings, such as left-right correspondence, torso-leg coordination, or phase-aligned motion.
-
-When a symmetry relation is physically justified, a coordination residual can be defined as:
+A symmetry-aware coordination residual may be written as:
 
 $$
 r_{\mathrm{sym}}(t) =
@@ -89,11 +89,11 @@ x_{\mathrm{right}}(t-\Delta_{\phi})
 \right\rVert.
 $$
 
-Graph and frame-based features are optional diagnostic channels. They do not replace contact or dynamics checks.
+This can reveal when body segments no longer move in an expected coordinated relationship. Graph and frame-based features are optional diagnostic tools; they do not replace physics, contact checks, or state estimation.
 
-## 5. One consistency system
+## ELDCF as a pre-trust layer
 
-ELDCF combines the channels into an interpretable risk vector:
+ELDCF combines these sources of evidence into a risk representation:
 
 $$
 r(t) =
@@ -106,7 +106,7 @@ r_{\mathrm{recovery}}(t)
 \end{bmatrix}.
 $$
 
-The system maps this evidence to supervisory actions:
+It can then provide supervisory outputs such as:
 
 $$
 \{
@@ -118,10 +118,12 @@ $$
 \}.
 $$
 
-ELDCF is not a robot brain and not a motor controller. It is a **pre-trust layer** between state estimation and control:
+ELDCF does not replace a world model, reinforcement learning, model predictive control, whole-body control, or low-level motor control. Those systems decide and execute actions.
 
-> Before the robot commits to its next action, ELDCF asks whether its own body still makes physical, geometric, and observational sense.
+ELDCF asks a prior question:
+
+> Before the robot commits to its next action, do its sensors, contact forces, body geometry, and physical dynamics still describe one coherent world state?
 
 ## Research status
 
-ELDCF is a research framework. Current results come from synthetic and reduced-order studies of contact disturbances and observation faults. It does not yet guarantee that a humanoid will not fall or safely recover in every environment. Full-body simulation and hardware validation are required.
+ELDCF is a research framework. Current evidence comes from synthetic and reduced-order tests of contact disturbances and observation faults. It does not yet guarantee that a humanoid will not fall or safely recover in every environment. Full-body simulation and hardware validation are required.
